@@ -9,13 +9,39 @@ workflows:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@6: {}
     - script@1:
-        title: Fix Line Endings
+        title: Fix Line Endings for All Scripts
         inputs:
         - content: |-
             #!/bin/bash
-            echo "Fixing line endings for gradlew"
-            sed -i 's/\r$//' ./gradlew
+            echo "Fixing line endings for all script files..."
+            
+            # 确保所有脚本文件使用LF而不是CRLF
+            find . -name "*.sh" -type f -exec sed -i 's/\r$//' {} \;
+            find . -name "gradlew" -type f -exec sed -i 's/\r$//' {} \;
+            
+            # 显示gradlew的前几行以确认修复
+            echo "Checking gradlew file first line:"
+            head -n 1 ./gradlew | hexdump -C
+            
+            # 确保脚本是可执行的
+            find . -name "*.sh" -type f -exec chmod +x {} \;
+            find . -name "gradlew" -type f -exec chmod +x {} \;
+            
+            # 创建一个新的临时gradlew文件，确保完全使用LF
+            echo '#!/bin/sh' > ./gradlew.tmp
+            tail -n +2 ./gradlew >> ./gradlew.tmp
+            mv ./gradlew.tmp ./gradlew
             chmod +x ./gradlew
+            
+            echo "Line endings fixed for all script files."
+    - script@1:
+        title: Check Gradle Dependencies
+        inputs:
+        - content: |-
+            #!/bin/bash
+            echo "Testing gradle wrapper..."
+            # 尝试运行简单的gradle命令来测试wrapper是否正常工作
+            ./gradlew -v
     - install-missing-android-tools@3:
         inputs:
         - gradlew_path: "./gradlew"

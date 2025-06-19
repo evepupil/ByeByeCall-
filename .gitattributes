@@ -1,0 +1,18 @@
+# 设置默认行为，以防开发人员没有设置core.autocrlf
+* text=auto
+
+# 强制这些文件总是使用LF行结束符，即使在Windows上
+*.sh text eol=lf
+gradlew text eol=lf
+*.java text eol=lf
+*.kt text eol=lf
+*.kts text eol=lf
+
+# 明确声明为二进制文件，不应该进行行尾转换
+*.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary 

@@ -15,11 +15,16 @@ android {
     
     signingConfigs {
         release {
-            // 使用相对路径
-            storeFile file("../telprotect.keystore")
-            storePassword "123456"  // 请替换为您实际使用的密码
-            keyAlias "telprotect"
-            keyPassword "123456"  // 请替换为您实际使用的密码
+            // 支持从环境变量或本地属性读取签名信息
+            def keystoreFile = System.getenv("KEYSTORE_FILE") ?: "../telprotect.keystore"
+            def keystorePassword = System.getenv("KEYSTORE_PASSWORD") ?: "123456"
+            def keyAlias = System.getenv("KEY_ALIAS") ?: "telprotect"
+            def keyPassword = System.getenv("KEY_PASSWORD") ?: "123456"
+            
+            storeFile file(keystoreFile)
+            storePassword keystorePassword
+            keyAlias keyAlias
+            keyPassword keyPassword
         }
     }
     
