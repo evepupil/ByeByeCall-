@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">电话拦截器</string>
+    <string name="add_keyword">添加关键字</string>
+    <string name="keyword_hint">输入要拦截的关键字</string>
+    <string name="save">保存</string>
+    <string name="service_running">电话拦截服务正在运行</string>
+    <string name="service_stopped">电话拦截服务已停止</string>
+    <string name="start_service">启动服务</string>
+    <string name="stop_service">停止服务</string>
+    <string name="permission_required">需要权限</string>
+    <string name="permission_message">此应用需要电话和联系人权限才能正常工作</string>
+    <string name="keyword_list">关键字列表</string>
+    <string name="delete">删除</string>
+    <string name="notification_channel_name">电话拦截服务</string>
+    <string name="notification_title">电话拦截器正在运行</string>
+    <string name="notification_text">正在监听来电以进行关键字拦截</string>
+</resources> 
